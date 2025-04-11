@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-//! reading makes you smart.
+//! # Hack VM Translator
+//!
+//! A VM translator that parses Hack VM commands and generates Hack assembly.
+//! Based on the nand2tetris course.
 
 /// This isn't a real project.
 ///

@@ -2,13 +2,16 @@
 //
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-//! This isn't a real project.
+//! # Hack VM Translator
+//!
+//! A VM translator that parses Hack VM commands and generates Hack assembly.
+//! Based on the nand2tetris course.
 
-/// This isn't a real project.
+/// The entrypoint of the assembler executable.
 ///
 /// ```rust
 /// println!("hello")
 /// ```
 fn main() {
-    println!("{}", rust_project_template::read_a_book());
+    println!("{}", hack_vm_translator::read_a_book());
 }

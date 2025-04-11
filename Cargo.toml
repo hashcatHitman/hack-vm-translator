@@ -3,18 +3,18 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
 [package]
-name = "rust_project_template"
+name = "hack-vm-translator"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.89.0"
 description = """
-A base for me to use as the starting point of my projects written in Rust.
+A VM translator that parses Hack VM commands and generates Hack assembly.
 """
 readme = "README.md"
-repository = "https://github.com/hashcatHitman/rust_project_template"
+repository = "https://github.com/hashcatHitman/hack-vm-translator"
 license = "Apache-2.0 OR MIT"
-keywords = ["project-template"]
-categories = ["rust-patterns", "development-tools"]
+keywords = ["nand2tetris", "vm"]
+categories = ["command-line-utilities", "compilers"]
 publish = false
 
 [profile.release]
