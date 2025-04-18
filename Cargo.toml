@@ -12,6 +12,9 @@ keywords = ["nand2tetris", "vm"]
 categories = ["command-line-utilities", "compilers"]
 publish = false
 
+[lib]
+path = "src/lib/lib.rs"
+
 [lints.rust]
 unsafe_code = "forbid"
 deprecated_safe_2024 = "forbid"

@@ -29,15 +29,21 @@
 
 #![feature(strict_provenance_lints, unqualified_local_imports)]
 
-/// The entrypoint of the assembler executable.
-fn main() {
-    let left: u64 = 42;
+use std::{env, process};
 
-    let right: u64 = 16;
+use hack_vm_translator::{Config, run};
 
-    let sum: u64 = hack_vm_translator::foo(left, right);
+/// The entrypoint of the translator executable.
+pub(crate) fn main() {
+    let args: env::Args = env::args();
 
-    println!("{left} + {right} = {sum}");
+    let config: Config = Config::build(args).unwrap_or_else(|error| {
+        eprintln!("Problem parsing arguments: {error}");
+        process::exit(1);
+    });
 
-    println!("Hack the planet!");
+    if let Err(error) = run(&config) {
+        eprintln!("Problem running: {error}");
+        process::exit(1);
+    }
 }
