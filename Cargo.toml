@@ -17,6 +17,9 @@ keywords = ["nand2tetris", "vm"]
 categories = ["command-line-utilities", "compilers"]
 publish = false
 
+[lib]
+path = "src/lib/lib.rs"
+
 [profile.release]
 codegen-units = 1
 strip = true
