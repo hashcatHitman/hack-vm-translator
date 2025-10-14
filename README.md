@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 # Rust Project Template
 
-[![unsafe forbidden]][safety dance] [![dependency badge]][deps.rs] [![CI status]][CI workflow]
+[![unsafe forbidden]][safety dance] [![dependency badge]][deps.rs] [![CI status]][CI workflow] [![CodeQL]][CodeQL workflow]
 
 ---
 
@@ -81,6 +81,9 @@ it will exist.)
 
 [CI status]: https://github.com/hashcatHitman/rust_project_template/actions/workflows/ci.yml/badge.svg
 [CI workflow]: https://github.com/hashcatHitman/rust_project_template/actions/workflows/ci.yml
+
+[CodeQL]: https://github.com/hashcatHitman/rust_project_template/actions/workflows/github-code-scanning/codeql/badge.svg
+[CodeQL workflow]: https://github.com/hashcatHitman/rust_project_template/actions/workflows/github-code-scanning/codeql
 
 [recommended Rust installation method]: https://www.rust-lang.org/tools/install
 
