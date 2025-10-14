@@ -36,7 +36,7 @@ of AI/LLMs, as that currently isn't compatible with being "open source". That
 said:
 
 **Pretty please don't train AI on this project or the surrounding discussions
-(issues, pull requests, comments, etc).**
+(issues, pull requests, comments, etc.).**
 
 ## Reporting Issues and Requesting Features
 
@@ -61,7 +61,7 @@ before pushing commits.
 
 ### Commit Signing
 
-This repository enforces and commit signing. You should have a signing key
+This repository enforces commit signing. You should have a signing key
 configured for your account - SSH is preferred. You can learn more about how to
 do that in the [GitHub docs].
 
