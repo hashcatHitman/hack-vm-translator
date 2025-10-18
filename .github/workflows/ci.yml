@@ -17,12 +17,18 @@ env:
   CARGO_TERM_COLOR: always
   MSRV: 1.89.0
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   quality-control:
     name: Quality Control
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
       - name: Nightly Install
         run: rustup toolchain add nightly && rustup component add --toolchain nightly rustfmt clippy
       - name: Format Check (Nightly)
@@ -40,15 +46,17 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
       - name: MSRV Install
-        run: rustup toolchain add ${{ env.MSRV }}
+        run: rustup toolchain add ${MSRV}
       - name: Build
-        run: cargo +${{ env.MSRV }} build --verbose --workspace --all-targets --all-features --locked
+        run: cargo +${MSRV} build --verbose --workspace --all-targets --all-features --locked
       - name: Tests
-        run: cargo +${{ env.MSRV }} test --verbose --workspace --all-targets --all-features --locked
+        run: cargo +${MSRV} test --verbose --workspace --all-targets --all-features --locked
       - name: Doctests
-        run: cargo +${{ env.MSRV }} test --verbose --workspace --doc --all-features --locked
+        run: cargo +${MSRV} test --verbose --workspace --doc --all-features --locked
 
   build-test-nightly:
     strategy:
@@ -60,7 +68,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
       - name: Build
         run: cargo +nightly build --verbose --workspace --all-targets --all-features --locked
       - name: Tests
