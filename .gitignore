@@ -5,3 +5,4 @@
 /target
 /.cargo
 /.venv
+/rust-toolchain.toml
