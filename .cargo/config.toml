@@ -4,10 +4,17 @@
 
 [build]
 rustflags = [
+    # If I can make use of CPU-specific features I have, I'd like to.
     "-Ctarget-cpu=native",
+    # Preferred linker
     # "-Clink-arg=-fuse-ld=mold",
+    # Improves compilation times, doesn't seem to impact runtime performance
     # "-Zthreads=8",
+    # Unstable lints
     # "-Zcrate-attr=feature(strict_provenance_lints,unqualified_local_imports)",
+    # For profiling.
+    # "-Cforce-frame-pointers=yes",
+    # "-Clink-arg=-Wl,--no-rosegment",
 ]
 
 [future-incompat-report]
