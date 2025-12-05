@@ -52,17 +52,26 @@ deref_into_dyn_supertrait = "warn"
 explicit_outlives_requirements = "warn"
 fuzzy_provenance_casts = "warn"                 # unstable; #130351
 if_let_rescope = "warn"
+impl_trait_overcaptures = "warn"
 impl_trait_redundant_captures = "warn"
+keyword_idents_2018 = "warn"
+keyword_idents_2024 = "warn"
+let_underscore_drop = "warn"
 lossy_provenance_casts = "warn"                 # unstable; #130351
 macro_use_extern_crate = "warn"
 meta_variable_misuse = "warn"
 missing_copy_implementations = "warn"
 missing_debug_implementations = "warn"
 missing_docs = "warn"
-non_ascii_idents = "warn"
+multiple_supertrait_upcastable = "warn"
+must_not_suspend = "warn"
+non_ascii_idents = "forbid"
+non_exhaustive_omitted_patterns_lint = "warn"
 redundant_imports = "warn"
 redundant_lifetimes = "warn"
 single_use_lifetimes = "warn"
+supertrait_item_shadowing_definition = "warn"
+supertrait_item_shadowing_usage = "warn"
 trivial_casts = "warn"
 trivial_numeric_casts = "warn"
 unit_bindings = "warn"
@@ -73,8 +82,10 @@ unused_crate_dependencies = "warn"
 unused_extern_crates = "warn"
 unused_import_braces = "warn"
 unused_lifetimes = "warn"
+unused_macro_rules = "warn"
 unused_qualifications = "warn"
 unused_results = "warn"
+variant_size_differences = "warn"
 
 [lints.clippy]
 correctness = "forbid"
@@ -103,10 +114,12 @@ create_dir = { level = "warn", priority = 1 }
 dbg_macro = { level = "warn", priority = 1 }
 decimal_literal_representation = { level = "warn", priority = 1 }
 doc_include_without_cfg = { level = "warn", priority = 1 }
+doc_paragraphs_missing_punctuation = { level = "warn", priority = 1 }
 else_if_without_else = { level = "warn", priority = 1 }
 empty_drop = { level = "warn", priority = 1 }
 empty_enum_variants_with_brackets = { level = "warn", priority = 1 }
 empty_structs_with_brackets = { level = "warn", priority = 1 }
+error_impl_error = { level = "warn", priority = 1 }
 exit = { level = "warn", priority = 1 }
 expect_used = { level = "warn", priority = 1 }
 field_scoped_visibility_modifiers = { level = "warn", priority = 1 }
@@ -122,6 +135,7 @@ integer_division_remainder_used = { level = "warn", priority = 1 }
 iter_over_hash_type = { level = "warn", priority = 1 }
 large_include_file = { level = "warn", priority = 1 }
 let_underscore_must_use = { level = "warn", priority = 1 }
+let_underscore_untyped = { level = "warn", priority = 1 }
 lossy_float_literal = { level = "warn", priority = 1 }
 map_err_ignore = { level = "warn", priority = 1 }
 map_with_unused_argument_over_ranges = { level = "warn", priority = 1 }
@@ -133,6 +147,7 @@ missing_docs_in_private_items = { level = "warn", priority = 1 }
 mixed_read_write_in_expression = { level = "warn", priority = 1 }
 mod_module_files = { level = "warn", priority = 1 }
 module_name_repetitions = { level = "warn", priority = 1 }
+modulo_arithmetic = { level = "warn", priority = 1 }
 multiple_inherent_impl = { level = "warn", priority = 1 }
 multiple_unsafe_ops_per_block = { level = "forbid", priority = 1 }
 mutex_atomic = { level = "warn", priority = 1 }
@@ -170,7 +185,6 @@ unimplemented = { level = "warn", priority = 1 }
 unnecessary_safety_comment = { level = "warn", priority = 1 }
 unnecessary_safety_doc = { level = "warn", priority = 1 }
 unnecessary_self_imports = { level = "warn", priority = 1 }
-unneeded_field_pattern = { level = "warn", priority = 1 }
 unreachable = { level = "warn", priority = 1 }
 unseparated_literal_suffix = { level = "warn", priority = 1 }
 unused_result_ok = { level = "warn", priority = 1 }
