@@ -11,7 +11,7 @@ rustflags = [
     # Improves compilation times, doesn't seem to impact runtime performance
     # "-Zthreads=8",
     # Unstable lints
-    # "-Zcrate-attr=feature(strict_provenance_lints,unqualified_local_imports)",
+    # "-Zcrate-attr=feature(strict_provenance_lints,unqualified_local_imports,must_not_suspend,multiple_supertrait_upcastable)",
     # For profiling.
     # "-Cforce-frame-pointers=yes",
     # "-Clink-arg=-Wl,--no-rosegment",

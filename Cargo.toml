@@ -99,10 +99,10 @@ missing_debug_implementations = "warn"
 missing_docs = "warn"
 
 # Adds overhead. Is it worth it?
-multiple_supertrait_upcastable = "warn"
+multiple_supertrait_upcastable = "warn" #unstable; #NO_TRACKING_ISSUE?
 
 # Causes problems in async
-must_not_suspend = "warn"
+must_not_suspend = "warn" # unstable; #83310
 
 # I don't write non-ascii characters. If these show up, it's a security problem.
 non_ascii_idents = "forbid"
