@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-//! reading makes you smart
+//! reading makes you smart.
 
 /// This isn't a real project.
 ///
