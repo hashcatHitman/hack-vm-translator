@@ -40,157 +40,397 @@ debug = false
 incremental = false
 
 [lints.rust]
+# Unsafe code
 unsafe_code = "forbid"
 deprecated_safe_2024 = "forbid"
 missing_unsafe_on_extern = "forbid"
 unsafe_attr_outside_unsafe = "forbid"
 unsafe_op_in_unsafe_fn = "forbid"
-absolute_paths_not_starting_with_crate = "warn"
+# Casting integers to pointers messes with provenance
+fuzzy_provenance_casts = "warn" # unstable; #130351
+# Casting pointers to integers loses with provenance
+lossy_provenance_casts = "warn" # unstable; #130351
+
+# I don't like ambiguity
 ambiguous_negative_literals = "warn"
+
+# This should be an async closure instead
 closure_returning_async_block = "warn"
+
+# These are shadowed since 1.86.0
 deref_into_dyn_supertrait = "warn"
+
+# Unnecessary lifetime bounds add clutter, complexity, and may be a sign of user
+# error
 explicit_outlives_requirements = "warn"
-fuzzy_provenance_casts = "warn"                 # unstable; #130351
-if_let_rescope = "warn"
-impl_trait_overcaptures = "warn"
 impl_trait_redundant_captures = "warn"
-keyword_idents_2018 = "warn"
-keyword_idents_2024 = "warn"
-let_underscore_drop = "warn"
-lossy_provenance_casts = "warn"                 # unstable; #130351
-macro_use_extern_crate = "warn"
-meta_variable_misuse = "warn"
-missing_copy_implementations = "warn"
-missing_debug_implementations = "warn"
-missing_docs = "warn"
-multiple_supertrait_upcastable = "warn"
-must_not_suspend = "warn"
-non_ascii_idents = "forbid"
-non_exhaustive_omitted_patterns_lint = "warn"
-redundant_imports = "warn"
 redundant_lifetimes = "warn"
 single_use_lifetimes = "warn"
-supertrait_item_shadowing_definition = "warn"
-supertrait_item_shadowing_usage = "warn"
-trivial_casts = "warn"
-trivial_numeric_casts = "warn"
-unit_bindings = "warn"
-unnameable_types = "warn"
-unqualified_local_imports = "warn"              # unstable; #138299
-unreachable_pub = "warn"
+unused_lifetimes = "warn"
+
+# Drops like this are unexpected
+if_let_rescope = "warn"
+let_underscore_drop = "warn"
+
+# Can lead to overzealous borrowck
+impl_trait_overcaptures = "warn"
+
+# Whatever edition I'm using, I'd rather avoid using future keywords
+keyword_idents_2018 = "warn"
+keyword_idents_2024 = "warn"
+
+# Messy
+absolute_paths_not_starting_with_crate = "warn"
+macro_use_extern_crate = "warn"
+redundant_imports = "warn"
 unused_crate_dependencies = "warn"
 unused_extern_crates = "warn"
 unused_import_braces = "warn"
-unused_lifetimes = "warn"
-unused_macro_rules = "warn"
 unused_qualifications = "warn"
+
+# Can have false positives, but can also help write better macros
+meta_variable_misuse = "warn"
+
+# I like implementing traits when I can, usually
+missing_copy_implementations = "warn"
+missing_debug_implementations = "warn"
+
+# Documentation is good to have
+missing_docs = "warn"
+
+# Adds overhead. Is it worth it?
+multiple_supertrait_upcastable = "warn"
+
+# Causes problems in async
+must_not_suspend = "warn"
+
+# I don't write non-ascii characters. If these show up, it's a security problem.
+non_ascii_idents = "forbid"
+
+# Explicit matches are preferred
+non_exhaustive_omitted_patterns_lint = "warn"
+
+# Shadowing silently leads to unexpected behavior
+supertrait_item_shadowing_definition = "warn"
+supertrait_item_shadowing_usage = "warn"
+
+# Casting can be dangerous, I'd rather not if I don't need to
+trivial_casts = "warn"
+trivial_numeric_casts = "warn"
+unreachable_pub = "warn"
+
+# This probably means I made a mistake
+unit_bindings = "warn"
+unnameable_types = "warn"
+unused_macro_rules = "warn"
 unused_results = "warn"
+
+# Explicitness provides clarity, and this assists import grouping in rustfmt
+unqualified_local_imports = "warn" # unstable; #138299
+
+# This is an easy way to accidently tank performance. Check!
 variant_size_differences = "warn"
 
+
 [lints.clippy]
+# "code that is outright wrong or useless"
 correctness = "forbid"
+# "code that is most likely wrong or useless"
 suspicious = "warn"
+# "code that does something simple but in a complex way"
 complexity = "warn"
+# "code that can be written to run faster"
 perf = "warn"
+# "code that should be written in a more idiomatic way"
 style = "warn"
+# I tend to find these useful. I can always `expect` false positives.
 pedantic = "warn"
+# "lints for the cargo manifest"
 cargo = "warn"
+# I find this annoying.
 must_use_candidate = { level = "allow", priority = 1 }
+# New lints are fun! They tend to work well enough.
 nursery = "warn"
+# I find this annoying.
 redundant_pub_crate = { level = "allow", priority = 1 }
 
 # Restrictions
+
+# This is messy and unidiomatic.
 absolute_paths = { level = "warn", priority = 1 }
+
+# When possible, I'd prefer to import from core
 alloc_instead_of_core = { level = "warn", priority = 1 }
+
+# If a lint stops firing, I don't want to keep it disabled.
 allow_attributes = { level = "warn", priority = 1 }
+
+# Give a reason!
 allow_attributes_without_reason = { level = "warn", priority = 1 }
+
+# Overflows and panics are undesirable, prefer explicit handling
 arithmetic_side_effects = { level = "warn", priority = 1 }
+
+# This cast can be dangerous.
 as_pointer_underscore = { level = "warn", priority = 1 }
 as_underscore = { level = "warn", priority = 1 }
+
+# This form of assertion does not show any of the information present in the
+# Result other than which variant it isn’t.
 assertions_on_result_states = { level = "warn", priority = 1 }
+
+# Can give the false impression of 100% coverage
 cfg_not_test = { level = "warn", priority = 1 }
+
+# Obscures the fact that only the pointer is being cloned, not the underlying
+# data
 clone_on_ref_ptr = { level = "warn", priority = 1 }
+
+# Results in failure when more than one directory needs to be created or when
+# the directory already exists
 create_dir = { level = "warn", priority = 1 }
+
+# Debugging tool, not to be committed
 dbg_macro = { level = "warn", priority = 1 }
+
+# Can improve readability
 decimal_literal_representation = { level = "warn", priority = 1 }
+
+# May cause needless recompilation.
 doc_include_without_cfg = { level = "warn", priority = 1 }
+
+# I like using punctuation.
 doc_paragraphs_missing_punctuation = { level = "warn", priority = 1 }
+
+# MISRA-C:2004 Rule 14.10, explicitness
 else_if_without_else = { level = "warn", priority = 1 }
+
+# Prevents destructuring to no other benefit
 empty_drop = { level = "warn", priority = 1 }
+
+# Style preference
 empty_enum_variants_with_brackets = { level = "warn", priority = 1 }
 empty_structs_with_brackets = { level = "warn", priority = 1 }
+
+# Confusing to have 20 "Error"s
 error_impl_error = { level = "warn", priority = 1 }
+
+# Don't terminate outside of main.
 exit = { level = "warn", priority = 1 }
+
+# Handle errors
 expect_used = { level = "warn", priority = 1 }
+
+# Increases area that needs to be checked to maintain invariants
 field_scoped_visibility_modifiers = { level = "warn", priority = 1 }
+
+# Tests whether a path is something you can get bytes from. Doesn’t cover
+# special file types in unix-like systems, and doesn’t cover symlink in windows.
+# Using `!FileType::is_dir()` is a better way in those cases.
 filetype_is_file = { level = "warn", priority = 1 }
+
+# https://floating-point-gui.de/errors/comparison/
 float_cmp_const = { level = "warn", priority = 1 }
+
+# This is almost definitely a mistake.
 fn_to_numeric_cast_any = { level = "warn", priority = 1 }
+
+# This is more concise.
 if_then_some_else_none = { level = "warn", priority = 1 }
+
+# Less useful, not turbofish compatible. Use generics.
 impl_trait_in_params = { level = "warn", priority = 1 }
+
+# This can panic! Use non-panicking methods instead, OR, justify it.
 indexing_slicing = { level = "warn", priority = 1 }
+
+# This is probably a mistake.
 infinite_loop = { level = "warn", priority = 1 }
+
+# This might be a mistake. Double check. Remainder is discarded here.
 integer_division = { level = "warn", priority = 1 }
+
+# May prefer constant time implementations, and generally prefer explicit floor/
+# ceil/euclid/etc method to make sure it works as expected.
 integer_division_remainder_used = { level = "warn", priority = 1 }
+
+# Order is undefined. Iterate over keys instead.
 iter_over_hash_type = { level = "warn", priority = 1 }
+
+# Might be a mistake.
 large_include_file = { level = "warn", priority = 1 }
+
+# Might be a mistake.
 let_underscore_must_use = { level = "warn", priority = 1 }
+
+# Can lead to mistakes if left untyped
 let_underscore_untyped = { level = "warn", priority = 1 }
+
+# Unexpected precision loss is undesirable
 lossy_float_literal = { level = "warn", priority = 1 }
+
+# Original error discarded
 map_err_ignore = { level = "warn", priority = 1 }
+
+# Expresses intent better
 map_with_unused_argument_over_ranges = { level = "warn", priority = 1 }
+
+# Memory leaks
 mem_forget = { level = "warn", priority = 1 }
+
+# Use descriptive names
 min_ident_chars = { level = "warn", priority = 1 }
+
+# Explain why it's a problem if it fails
 missing_assert_message = { level = "warn", priority = 1 }
+
+# Removes bounds checks
 missing_asserts_for_indexing = { level = "warn", priority = 1 }
+
+# Document everything
 missing_docs_in_private_items = { level = "warn", priority = 1 }
+
+# Confusing!
 mixed_read_write_in_expression = { level = "warn", priority = 1 }
+
+# I don't like the mod.rs style
 mod_module_files = { level = "warn", priority = 1 }
+
+# Better names are usually possible
 module_name_repetitions = { level = "warn", priority = 1 }
+
+# Generally prefer explicit floor/ ceil/euclid/etc method to make sure it works
+# as expected.
 modulo_arithmetic = { level = "warn", priority = 1 }
+
+# Keep it all together, easier to review
 multiple_inherent_impl = { level = "warn", priority = 1 }
+
+# If you're writing unsafe, justify EVERY operation.
 multiple_unsafe_ops_per_block = { level = "forbid", priority = 1 }
+
+# Mutex is overkill
 mutex_atomic = { level = "warn", priority = 1 }
 mutex_integer = { level = "warn", priority = 1 }
+
+# Prefer normal string literals
 needless_raw_strings = { level = "warn", priority = 1 }
+
+# May not play well with all editors
 non_ascii_literal = { level = "warn", priority = 1 }
+
+# Consistent NonZero use can improve performance and maintain invariants
 non_zero_suggestions = { level = "warn", priority = 1 }
+
+# Don't panic. Return/handle errors.
 panic = { level = "warn", priority = 1 }
 panic_in_result_fn = { level = "warn", priority = 1 }
+
+# Go all in one way or another. This is weird.
 partial_pub_fields = { level = "warn", priority = 1 }
+
+# Less readable.
 pathbuf_init_then_push = { level = "warn", priority = 1 }
+
+# Explicit ownership changes
 pattern_type_mismatch = { level = "warn", priority = 1 }
+
+# Explicit precedence for clarity
 precedence_bits = { level = "warn", priority = 1 }
+
+# Consistency
 pub_without_shorthand = { level = "warn", priority = 1 }
+
+# Usually not ideal.
 rc_buffer = { level = "warn", priority = 1 }
+
+# Rc is singlethreaded, Mutex is multithreaded. Weird to use together.
 rc_mutex = { level = "warn", priority = 1 }
+
+# Cargo test already adds test to the name
 redundant_test_prefix = { level = "warn", priority = 1 }
+
+# Use the existing name
 renamed_function_params = { level = "warn", priority = 1 }
+
+# Explicit matching is preferred.
 rest_pat_in_fully_bound_structs = { level = "warn", priority = 1 }
+
+# More concise
 return_and_then = { level = "warn", priority = 1 }
+
+# Confusing
 same_name_method = { level = "warn", priority = 1 }
+
+# Consistency
 semicolon_outside_block = { level = "warn", priority = 1 }
+
+# Use explicit lifetime names
 single_char_lifetime_names = { level = "warn", priority = 1 }
+
+# I'd rather use alloc than std
 std_instead_of_alloc = { level = "warn", priority = 1 }
+
+# I'd rather use core than std
 std_instead_of_core = { level = "warn", priority = 1 }
+
+# to_owned better expresses intent
 str_to_string = { level = "warn", priority = 1 }
+
+# push_str instead
 string_add = { level = "warn", priority = 1 }
+
+# Hurts performance
 string_lit_chars_any = { level = "warn", priority = 1 }
+
+# May panic/split chars
 string_slice = { level = "warn", priority = 1 }
+
+# I might make this mistake.
 suspicious_xor_used_as_pow = { level = "warn", priority = 1 }
+
+# Tests go in the test module.
 tests_outside_test_module = { level = "warn", priority = 1 }
+
+# I don't want to forget to go back and do this... plus it panics
 todo = { level = "warn", priority = 1 }
+
+# If you're using unsafe, justify it.
 undocumented_unsafe_blocks = { level = "forbid", priority = 1 }
+
+# Panics.
 unimplemented = { level = "warn", priority = 1 }
+
+# Confusing. Safe code doesn't need this.
 unnecessary_safety_comment = { level = "warn", priority = 1 }
 unnecessary_safety_doc = { level = "warn", priority = 1 }
+
+# Messy.
 unnecessary_self_imports = { level = "warn", priority = 1 }
+
+# Panics. If using, justify.
 unreachable = { level = "warn", priority = 1 }
+
+# This makes it easier to read
 unseparated_literal_suffix = { level = "warn", priority = 1 }
+
+# This is probably a mistake
 unused_result_ok = { level = "warn", priority = 1 }
+
+# Useful for seeing traits in use
 unused_trait_names = { level = "warn", priority = 1 }
+
+# Just forward the error...
 unwrap_in_result = { level = "warn", priority = 1 }
+
+# Return/handle errors, don't panic.
 unwrap_used = { level = "warn", priority = 1 }
+
+# This might be a mistake
 use_debug = { level = "warn", priority = 1 }
+
+# This is easier.
 verbose_file_reads = { level = "warn", priority = 1 }
+
+# Explicit matching is preferred
 wildcard_enum_match_arm = { level = "warn", priority = 1 }
