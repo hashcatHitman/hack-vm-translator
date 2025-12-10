@@ -18,10 +18,6 @@ The `CONTRIBUTING.md` is also not exactly meant for this project, but if you do
 want to contribute, that's more than welcome - just bear in mind I'm unlikely to
 accept contributions that don't make the project more useful for me.
 
-Also, the `.cargo` folder was included intentionally. It won't be in actual
-projects. The sections that were commented out were commented out so CI could
-pass (not that it really matters for a template).
-
 The rest of the information in this README is boilerplate.
 
 ## Getting Started
