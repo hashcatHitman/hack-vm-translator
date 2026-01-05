@@ -79,7 +79,7 @@ typically welcome as well.
 An example commit message might look like:
 
 ```text
-fix: removed needless panic
+fix: Remove needless panic
 
 For some reason there was a `panic!()` hidden in one of the builders
 that was causing crashes. That's gone now.
