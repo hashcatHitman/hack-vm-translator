@@ -99,7 +99,7 @@ missing_debug_implementations = "warn"
 missing_docs = "warn"
 
 # Adds overhead. Is it worth it?
-multiple_supertrait_upcastable = "warn" # unstable; #NO_TRACKING_ISSUE?
+multiple_supertrait_upcastable = "warn" # unstable; #150833
 
 # Causes problems in async
 must_not_suspend = "warn" # unstable; #83310
