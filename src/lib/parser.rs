@@ -114,7 +114,7 @@ impl TryFrom<&OsStr> for Parser {
 /// [`Branching::GoTo`], and [`Branching::IfGoTo`].
 ///
 /// [`Instruction::Functional`] can contain [`Functional::Function`],
-/// [`Functional::Call`], and [`Functional::Return`]
+/// [`Functional::Call`], and [`Functional::Return`].
 #[derive(Debug, Clone, Hash)]
 pub(crate) enum Instruction {
     /// A discriminant for stack manipulating instructions.
@@ -384,19 +384,19 @@ impl Display for StackManipulation {
 /// Branching instructions.
 #[derive(Debug, Clone, Hash)]
 pub(crate) enum Branching {
-    /// TODO: DOC
+    /// TODO: DOC.
     Label {
-        /// TODO: DOC
+        /// TODO: DOC.
         symbol: Symbol,
     },
-    /// TODO: DOC
+    /// TODO: DOC.
     GoTo {
-        /// TODO: DOC
+        /// TODO: DOC.
         symbol: Symbol,
     },
-    /// TODO: DOC
+    /// TODO: DOC.
     IfGoTo {
-        /// TODO: DOC
+        /// TODO: DOC.
         symbol: Symbol,
     },
 }
@@ -456,21 +456,21 @@ impl Display for Branching {
 /// Functional instructions.
 #[derive(Debug, Clone, Hash)]
 pub(crate) enum Functional {
-    /// TODO: DOC
+    /// TODO: DOC.
     Function {
-        /// TODO: DOC
+        /// TODO: DOC.
         symbol: Symbol,
-        /// TODO: DOC
+        /// TODO: DOC.
         value: Constant,
     },
-    /// TODO: DOC
+    /// TODO: DOC.
     Call {
-        /// TODO: DOC
+        /// TODO: DOC.
         symbol: Symbol,
-        /// TODO: DOC
+        /// TODO: DOC.
         value: Constant,
     },
-    /// TODO: DOC
+    /// TODO: DOC.
     Return,
 }
 
