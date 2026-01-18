@@ -43,7 +43,9 @@ impl Segment {
             Self::Argument => Ok("ARG"),
             Self::This => Ok("THIS"),
             Self::That => Ok("THAT"),
-            _ => Err(HackError::Internal),
+            Self::Constant | Self::Static | Self::Temp | Self::Pointer => {
+                Err(HackError::Internal)
+            }
         }
     }
 }
