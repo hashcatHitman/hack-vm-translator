@@ -38,7 +38,7 @@ impl Segment {
     /// Some segments have special predefined symbols which point to the memory
     /// which points to their location. This returns that symbol, if it exists.
     pub(crate) const fn base(&self) -> Result<&str, HackError> {
-        match self {
+        match *self {
             Self::Local => Ok("LCL"),
             Self::Argument => Ok("ARG"),
             Self::This => Ok("THIS"),
@@ -106,23 +106,23 @@ impl Translator {
         instruction: &Instruction,
         file_name: &str,
     ) -> Result<Vec<String>, HackError> {
-        match instruction {
-            Instruction::StackManipulation(stack_manipulation) => {
-                match stack_manipulation {
-                    parser::StackManipulation::Push { symbol, value } => {
+        match *instruction {
+            Instruction::StackManipulation(ref stack_manipulation) => {
+                match *stack_manipulation {
+                    parser::StackManipulation::Push { ref symbol, value } => {
                         let seg: Segment = Segment::try_from(symbol)?;
-                        Self::push(&seg, *value, file_name)
+                        Self::push(&seg, value, file_name)
                     }
-                    parser::StackManipulation::Pop { symbol, value } => {
+                    parser::StackManipulation::Pop { ref symbol, value } => {
                         let seg: Segment = Segment::try_from(symbol)?;
-                        Self::pop(&seg, *value, file_name)
+                        Self::pop(&seg, value, file_name)
                     }
                 }
             }
-            Instruction::Branching(_branching) => todo!(),
-            Instruction::Functional(_functional) => todo!(),
+            Instruction::Branching(ref _branching) => todo!(),
+            Instruction::Functional(ref _functional) => todo!(),
             Instruction::Arithmetic(arithmetic) => {
-                Ok(Self::arithmetic(*arithmetic, line_number))
+                Ok(Self::arithmetic(arithmetic, line_number))
             }
         }
     }
@@ -214,7 +214,7 @@ impl Translator {
         i: Constant,
         file_name: &str,
     ) -> Result<Vec<String>, HackError> {
-        let unique: Vec<String> = match segment {
+        let unique: Vec<String> = match *segment {
             Segment::Constant => {
                 [
                     // D = i
@@ -344,7 +344,7 @@ impl Translator {
         i: Constant,
         file_name: &str,
     ) -> Result<Vec<String>, HackError> {
-        let unique: Vec<String> = match segment {
+        let unique: Vec<String> = match *segment {
             Segment::That
             | Segment::Local
             | Segment::Argument

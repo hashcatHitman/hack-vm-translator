@@ -74,13 +74,13 @@ impl From<Error> for HackError {
 impl Display for HackError {
     /// Determines the error message for displaying [`HackError`]s.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let message: &str = match self {
+        let message: &str = match *self {
             Self::SymbolHasForbiddenCharacter => {
                 "symbols must be a sequence of letters (a-z || A-Z), digits \
                 (0-9), underscores (_), dots (.), dollar signs ($), and/or \
                 colons (:) that does not begin with a digit"
             }
-            Self::UnrecognizedInstruction(bad_instruction) => {
+            Self::UnrecognizedInstruction(ref bad_instruction) => {
                 return write!(
                     f,
                     "could not determine instruction type for \
@@ -94,7 +94,7 @@ impl Display for HackError {
                 );
             }
             Self::FileExistsError { certain } => {
-                if *certain {
+                if certain {
                     "the target output file already exists, and this program \
                     refuses to overwrite it"
                 } else {
@@ -113,10 +113,10 @@ impl Display for HackError {
                     Constant::MAX_VALID_CONSTANT
                 );
             }
-            Self::IllegalInstruction(error_message)
-            | Self::FromStrError(error_message)
-            | Self::WriteError(error_message)
-            | Self::CannotReadFileFromPath(error_message) => error_message,
+            Self::IllegalInstruction(ref error_message)
+            | Self::FromStrError(ref error_message)
+            | Self::WriteError(ref error_message)
+            | Self::CannotReadFileFromPath(ref error_message) => error_message,
             Self::Internal => "internal error, please report this incident",
         };
 
