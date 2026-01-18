@@ -18,19 +18,19 @@ pub(crate) enum Segment {
     /// Constant is for constants. You can push a constant on to the stack, but
     /// you can't pop something off the stack into constant.
     Constant,
-    /// TODO: DOC
+    /// TODO: DOC.
     Local,
-    /// TODO: DOC
+    /// TODO: DOC.
     Argument,
-    /// TODO: DOC
+    /// TODO: DOC.
     This,
-    /// TODO: DOC
+    /// TODO: DOC.
     That,
-    /// TODO: DOC
+    /// TODO: DOC.
     Static,
-    /// TODO: DOC
+    /// TODO: DOC.
     Temp,
-    /// TODO: DOC
+    /// TODO: DOC.
     Pointer,
 }
 
