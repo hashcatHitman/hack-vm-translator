@@ -44,13 +44,11 @@ impl Parser {
     }
 
     /// Deserializes the file contents into [`Instruction`]s.
-    pub(crate) fn to_internal_types<'a, I>(
-        iterator: I,
-    ) -> Result<Enumerate<IntoIter<Instruction>>, HackError>
-    where
-        I: Iterator<Item = Vec<&'a str>>,
-    {
-        let iterator: Vec<Instruction> = iterator
+    pub(crate) fn to_internal_types(
+        &self,
+    ) -> Result<Enumerate<IntoIter<Instruction>>, HackError> {
+        let iterator: Vec<Instruction> = self
+            .lines()
             .map(|parts: Vec<&str>| match parts[..] {
                 [command] => Instruction::from_str(command),
                 [command, symbol] => {
@@ -90,7 +88,7 @@ impl Parser {
     pub(crate) fn parse(
         &self,
     ) -> Result<Enumerate<IntoIter<Instruction>>, HackError> {
-        Self::to_internal_types(self.lines())
+        self.to_internal_types()
     }
 }
 
