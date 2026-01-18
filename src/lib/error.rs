@@ -6,7 +6,7 @@
 //!
 //! A submodule containing the various [`HackError`]s that can occur.
 
-use core::fmt::Display;
+use core::fmt::{self, Display};
 use std::io::Error;
 
 use crate::parser::Constant;
@@ -73,7 +73,7 @@ impl From<Error> for HackError {
 
 impl Display for HackError {
     /// Determines the error message for displaying [`HackError`]s.
-    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let message: &str = match self {
             Self::SymbolHasForbiddenCharacter => {
                 "symbols must be a sequence of letters (a-z || A-Z), digits \

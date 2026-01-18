@@ -10,7 +10,7 @@
 use core::ops::RangeInclusive;
 
 use crate::error::HackError;
-use crate::parser::{Arithmetic, Constant, Instruction, Symbol};
+use crate::parser::{self, Arithmetic, Constant, Instruction, Symbol};
 
 /// Each Segment is a virtual memory location, represented by predefined
 /// symbols.
@@ -109,14 +109,11 @@ impl Translator {
         match instruction {
             Instruction::StackManipulation(stack_manipulation) => {
                 match stack_manipulation {
-                    crate::parser::StackManipulation::Push {
-                        symbol,
-                        value,
-                    } => {
+                    parser::StackManipulation::Push { symbol, value } => {
                         let seg: Segment = Segment::try_from(symbol)?;
                         Self::push(&seg, *value, file_name)
                     }
-                    crate::parser::StackManipulation::Pop { symbol, value } => {
+                    parser::StackManipulation::Pop { symbol, value } => {
                         let seg: Segment = Segment::try_from(symbol)?;
                         Self::pop(&seg, *value, file_name)
                     }
