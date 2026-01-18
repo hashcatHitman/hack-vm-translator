@@ -303,7 +303,7 @@ impl FromStr for Constant {
 
         match together {
             (_, Ok(value)) => Self::try_from(value),
-            (s, Err(error)) => Err(HackError::FromStrError(format!(
+            (_, Err(error)) => Err(HackError::FromStrError(format!(
                 "invalid constant: \"{s}\" for reason: {error}"
             ))),
         }
