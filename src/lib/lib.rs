@@ -9,9 +9,11 @@
 
 extern crate alloc;
 
+use alloc::vec;
+use core::iter;
 use std::ffi::OsStr;
-use std::fs::File;
-use std::io::Write as _;
+use std::fs::{self, File};
+use std::io::{self, Write as _};
 use std::path::{Path, PathBuf};
 
 use crate::error::HackError;
@@ -94,9 +96,8 @@ impl Config {
 /// internal. See [`crate::error`] for more information of the errors.
 fn run_for_file(file: &Path) -> Result<(), HackError> {
     let parser: Parser = Parser::try_from(file.as_os_str())?;
-    let instructions: core::iter::Enumerate<
-        alloc::vec::IntoIter<parser::Instruction>,
-    > = parser.parse()?;
+    let instructions: iter::Enumerate<vec::IntoIter<parser::Instruction>> =
+        parser.parse()?;
     let new_file: PathBuf = if file.extension().is_some_and(|ext| ext == "vm") {
         file.with_extension("asm")
     } else {
@@ -138,9 +139,8 @@ pub fn run(config: &Config) -> Result<(), HackError> {
     let path: PathBuf = config.file_path().canonicalize()?;
     if path.try_exists()? {
         if path.is_dir() {
-            let files: Result<std::fs::ReadDir, std::io::Error> =
-                path.read_dir();
-            let files: std::fs::ReadDir = files?;
+            let files: Result<fs::ReadDir, io::Error> = path.read_dir();
+            let files: fs::ReadDir = files?;
             for entry in files {
                 let file: PathBuf = entry?.path().canonicalize()?;
                 run_for_file(&file)?;
