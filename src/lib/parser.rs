@@ -344,7 +344,7 @@ impl StackManipulation {
     /// Get the string representation of the base command of this
     /// [`StackManipulation`] instruction.
     pub(crate) const fn name(&self) -> &'static str {
-        match self {
+        match *self {
             Self::Push { .. } => Self::PUSH,
             Self::Pop { .. } => Self::POP,
         }
@@ -355,26 +355,29 @@ impl TryFrom<&(&str, Symbol, Constant)> for StackManipulation {
     type Error = HackError;
 
     fn try_from(value: &(&str, Symbol, Constant)) -> Result<Self, Self::Error> {
-        match value {
-            (Self::PUSH, symbol, value) => Ok(Self::Push {
+        match *value {
+            (Self::PUSH, ref symbol, value) => Ok(Self::Push {
                 symbol: symbol.clone(),
-                value: *value,
+                value,
             }),
-            (Self::POP, symbol, value) => Ok(Self::Pop {
+            (Self::POP, ref symbol, value) => Ok(Self::Pop {
                 symbol: symbol.clone(),
-                value: *value,
+                value,
             }),
-            (command, symbol, value) => Err(HackError::FromStrError(format!(
-                "invalid stack manipulation operation: \"{command} {symbol} {value}\""
-            ))),
+            (command, ref symbol, value) => {
+                Err(HackError::FromStrError(format!(
+                    "invalid stack manipulation operation: \"{command} {symbol} {value}\""
+                )))
+            }
         }
     }
 }
 
 impl Display for StackManipulation {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Pop { symbol, value } | Self::Push { symbol, value } => {
+        match *self {
+            Self::Pop { ref symbol, value }
+            | Self::Push { ref symbol, value } => {
                 write!(f, "{} {} {}", self.name(), symbol, value)
             }
         }
@@ -412,7 +415,7 @@ impl Branching {
     /// Get the string representation of the base command of this [`Branching`]
     /// instruction.
     pub(crate) const fn name(&self) -> &'static str {
-        match self {
+        match *self {
             Self::Label { .. } => Self::LABEL,
             Self::GoTo { .. } => Self::GO_TO,
             Self::IfGoTo { .. } => Self::IF_GO_TO,
@@ -424,17 +427,17 @@ impl TryFrom<&(&str, Symbol)> for Branching {
     type Error = HackError;
 
     fn try_from(value: &(&str, Symbol)) -> Result<Self, Self::Error> {
-        match value {
-            (Self::LABEL, symbol) => Ok(Self::Label {
+        match *value {
+            (Self::LABEL, ref symbol) => Ok(Self::Label {
                 symbol: symbol.clone(),
             }),
-            (Self::GO_TO, symbol) => Ok(Self::GoTo {
+            (Self::GO_TO, ref symbol) => Ok(Self::GoTo {
                 symbol: symbol.clone(),
             }),
-            (Self::IF_GO_TO, symbol) => Ok(Self::IfGoTo {
+            (Self::IF_GO_TO, ref symbol) => Ok(Self::IfGoTo {
                 symbol: symbol.clone(),
             }),
-            (command, symbol) => Err(HackError::FromStrError(format!(
+            (command, ref symbol) => Err(HackError::FromStrError(format!(
                 "invalid branching operation: \"{command} {symbol}\""
             ))),
         }
@@ -443,10 +446,10 @@ impl TryFrom<&(&str, Symbol)> for Branching {
 
 impl Display for Branching {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::GoTo { symbol }
-            | Self::Label { symbol }
-            | Self::IfGoTo { symbol } => {
+        match *self {
+            Self::GoTo { ref symbol }
+            | Self::Label { ref symbol }
+            | Self::IfGoTo { ref symbol } => {
                 write!(f, "{} {}", self.name(), symbol)
             }
         }
@@ -485,7 +488,7 @@ impl Functional {
     /// Get the string representation of the base command of this [`Functional`]
     /// instruction.
     pub(crate) const fn name(&self) -> &'static str {
-        match self {
+        match *self {
             Self::Function { .. } => Self::FUNCTION,
             Self::Call { .. } => Self::CALL,
             Self::Return => Self::RETURN,
@@ -497,18 +500,20 @@ impl TryFrom<&(&str, Symbol, Constant)> for Functional {
     type Error = HackError;
 
     fn try_from(value: &(&str, Symbol, Constant)) -> Result<Self, Self::Error> {
-        match value {
-            (Self::CALL, symbol, value) => Ok(Self::Call {
+        match *value {
+            (Self::CALL, ref symbol, value) => Ok(Self::Call {
                 symbol: symbol.clone(),
-                value: *value,
+                value,
             }),
-            (Self::FUNCTION, symbol, value) => Ok(Self::Function {
+            (Self::FUNCTION, ref symbol, value) => Ok(Self::Function {
                 symbol: symbol.clone(),
-                value: *value,
+                value,
             }),
-            (command, symbol, value) => Err(HackError::FromStrError(format!(
-                "invalid functional operation: \"{command} {symbol} {value}\""
-            ))),
+            (command, ref symbol, value) => {
+                Err(HackError::FromStrError(format!(
+                    "invalid functional operation: \"{command} {symbol} {value}\""
+                )))
+            }
         }
     }
 }
@@ -528,8 +533,9 @@ impl FromStr for Functional {
 
 impl Display for Functional {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Call { symbol, value } | Self::Function { symbol, value } => {
+        match *self {
+            Self::Call { ref symbol, value }
+            | Self::Function { ref symbol, value } => {
                 write!(f, "{} {} {}", self.name(), symbol, value)
             }
             Self::Return => write!(f, "{}", self.name()),
