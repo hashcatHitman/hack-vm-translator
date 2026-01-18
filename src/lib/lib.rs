@@ -11,7 +11,7 @@ extern crate alloc;
 
 use std::ffi::OsStr;
 use std::fs::File;
-use std::io::Write;
+use std::io::Write as _;
 use std::path::{Path, PathBuf};
 
 use crate::error::HackError;
