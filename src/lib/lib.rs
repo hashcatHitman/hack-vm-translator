@@ -92,7 +92,7 @@ impl Config {
 /// internal. See [`crate::error`] for more information of the errors.
 fn run_for_file(file: &Path) -> Result<(), HackError> {
     let parser: Parser = Parser::try_from(file.as_os_str())?;
-    let instructions: std::iter::Enumerate<
+    let instructions: core::iter::Enumerate<
         std::vec::IntoIter<parser::Instruction>,
     > = parser.parse()?;
     let new_file: PathBuf = if file.extension().is_some_and(|ext| ext == "vm") {

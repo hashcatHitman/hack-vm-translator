@@ -7,7 +7,7 @@
 //! A VM translator that parses Hack VM commands and generates Hack assembly.
 //! Based on the nand2tetris course.
 
-use std::ops::RangeInclusive;
+use core::ops::RangeInclusive;
 
 use crate::error::HackError;
 use crate::parser::{Arithmetic, Constant, Instruction, Symbol};
