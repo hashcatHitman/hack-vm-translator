@@ -52,8 +52,8 @@ impl Config {
     /// In either scenario, the error received will be a
     /// [`HackError::Misconfiguration`] holding the number of arguments that
     /// were passed, up to a limit of [`usize::MAX`].
-    pub fn build(
-        mut args: impl Iterator<Item = String>,
+    pub fn build<A: Iterator<Item = String>>(
+        mut args: A,
     ) -> Result<Self, HackError> {
         let _ = args.next();
 
