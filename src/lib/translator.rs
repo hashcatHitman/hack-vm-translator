@@ -121,8 +121,20 @@ impl Translator {
                     }
                 }
             }
-            Instruction::Branching(ref _branching) => todo!(),
-            Instruction::Functional(ref _functional) => todo!(),
+            #[expect(
+                clippy::todo,
+                reason = "Semester ended before we got to this."
+            )]
+            Instruction::Branching(ref _branching) => {
+                todo!("branching instructions not yet translatable")
+            }
+            #[expect(
+                clippy::todo,
+                reason = "Semester ended before we got to this."
+            )]
+            Instruction::Functional(ref _functional) => {
+                todo!("functional instructions not yet translatable")
+            }
             Instruction::Arithmetic(arithmetic) => {
                 Ok(Self::arithmetic(arithmetic, line_number))
             }
@@ -182,6 +194,11 @@ impl Translator {
                     Arithmetic::Subtract => {
                         [format!("M=M{}D", op.identify()[1])].to_vec()
                     }
+                    #[expect(
+                        clippy::unreachable,
+                        reason = "This branch should never happen unless some
+                        sort of UB or memory corruption is going on."
+                    )]
                     Arithmetic::Not | Arithmetic::Negative => {
                         unreachable!("{impossible}")
                     }
