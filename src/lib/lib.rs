@@ -7,6 +7,8 @@
 //! A VM translator that parses Hack VM commands and generates Hack assembly.
 //! Based on the nand2tetris course.
 
+extern crate alloc;
+
 use std::ffi::OsStr;
 use std::fs::File;
 use std::io::Write;
@@ -93,7 +95,7 @@ impl Config {
 fn run_for_file(file: &Path) -> Result<(), HackError> {
     let parser: Parser = Parser::try_from(file.as_os_str())?;
     let instructions: core::iter::Enumerate<
-        std::vec::IntoIter<parser::Instruction>,
+        alloc::vec::IntoIter<parser::Instruction>,
     > = parser.parse()?;
     let new_file: PathBuf = if file.extension().is_some_and(|ext| ext == "vm") {
         file.with_extension("asm")

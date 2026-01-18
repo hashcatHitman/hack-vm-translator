@@ -6,12 +6,12 @@
 //!
 //! Parses Hack VM commands. Based on the nand2tetris course.
 
+use alloc::vec::IntoIter;
 use core::fmt::Display;
 use core::iter::Enumerate;
 use core::str::FromStr;
 use std::ffi::OsStr;
 use std::fs::read_to_string;
-use std::vec::IntoIter;
 
 use crate::error::HackError;
 
