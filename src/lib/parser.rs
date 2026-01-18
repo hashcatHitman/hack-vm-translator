@@ -6,11 +6,11 @@
 //!
 //! Parses Hack VM commands. Based on the nand2tetris course.
 
+use core::fmt::Display;
+use core::iter::Enumerate;
+use core::str::FromStr;
 use std::ffi::OsStr;
-use std::fmt::Display;
 use std::fs::read_to_string;
-use std::iter::Enumerate;
-use std::str::FromStr;
 use std::vec::IntoIter;
 
 use crate::error::HackError;
@@ -255,7 +255,7 @@ impl FromStr for Symbol {
 }
 
 impl Display for Symbol {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.literal_representation)
     }
 }
@@ -297,7 +297,7 @@ impl FromStr for Constant {
     type Err = HackError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let together: (&str, Result<u16, std::num::ParseIntError>) =
+        let together: (&str, Result<u16, core::num::ParseIntError>) =
             (s, s.parse::<u16>());
 
         match together {
@@ -310,7 +310,7 @@ impl FromStr for Constant {
 }
 
 impl Display for Constant {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.literal_representation)
     }
 }
@@ -371,7 +371,7 @@ impl TryFrom<&(&str, Symbol, Constant)> for StackManipulation {
 }
 
 impl Display for StackManipulation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         match self {
             Self::Pop { symbol, value } | Self::Push { symbol, value } => {
                 write!(f, "{} {} {}", self.name(), symbol, value)
@@ -441,7 +441,7 @@ impl TryFrom<&(&str, Symbol)> for Branching {
 }
 
 impl Display for Branching {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         match self {
             Self::GoTo { symbol }
             | Self::Label { symbol }
@@ -526,7 +526,7 @@ impl FromStr for Functional {
 }
 
 impl Display for Functional {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         match self {
             Self::Call { symbol, value } | Self::Function { symbol, value } => {
                 write!(f, "{} {} {}", self.name(), symbol, value)
@@ -636,7 +636,7 @@ impl FromStr for Arithmetic {
 }
 
 impl Display for Arithmetic {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self.identify()[0])
     }
 }
