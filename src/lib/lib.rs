@@ -57,7 +57,7 @@ impl Config {
     pub fn build<A: Iterator<Item = String>>(
         mut args: A,
     ) -> Result<Self, HackError> {
-        let _ = args.next();
+        let _self_path_unused: Option<String> = args.next();
 
         let file_path: PathBuf = match args.next() {
             Some(file_path) => PathBuf::from(file_path),
