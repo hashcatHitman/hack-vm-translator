@@ -20,6 +20,9 @@ publish = false
 [lib]
 path = "src/lib/lib.rs"
 
+[dependencies]
+error_set = "=0.9.1"
+
 [profile.release]
 codegen-units = 1
 strip = true
