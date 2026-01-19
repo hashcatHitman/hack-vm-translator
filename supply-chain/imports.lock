@@ -1,6 +1,8 @@
 
 # cargo-vet imports lock
 
+[audits.google.audits]
+
 [audits.hashcatHitman.audits]
 
 [audits.mozilla.audits]
