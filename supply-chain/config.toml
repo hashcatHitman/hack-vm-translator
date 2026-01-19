@@ -4,6 +4,9 @@
 [cargo-vet]
 version = "0.10"
 
+[imports.google]
+url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
+
 [imports.hashcatHitman]
 url = "https://raw.githubusercontent.com/hashcatHitman/supply-chain/main/audits.toml"
 
