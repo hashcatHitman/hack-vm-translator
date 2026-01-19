@@ -18,19 +18,19 @@ pub(crate) enum Segment {
     /// Constant is for constants. You can push a constant on to the stack, but
     /// you can't pop something off the stack into constant.
     Constant,
-    /// TODO: DOC.
+
     Local,
-    /// TODO: DOC.
+
     Argument,
-    /// TODO: DOC.
+
     This,
-    /// TODO: DOC.
+
     That,
-    /// TODO: DOC.
+
     Static,
-    /// TODO: DOC.
+
     Temp,
-    /// TODO: DOC.
+
     Pointer,
 }
 
@@ -265,6 +265,10 @@ impl Translator {
                 .to_vec()
             }
             Segment::Temp => {
+                #[expect(
+                    clippy::arithmetic_side_effects,
+                    reason = "todo: revisit"
+                )]
                 let address: u16 = i.literal_representation() + Self::TEMP_BASE;
                 if (Self::TEMP_BASE..=Self::TEMP_MAX).contains(&address) {
                     [
@@ -386,6 +390,10 @@ impl Translator {
                 .to_vec()
             }
             Segment::Temp => {
+                #[expect(
+                    clippy::arithmetic_side_effects,
+                    reason = "todo: revisit"
+                )]
                 let address = i.literal_representation() + Self::TEMP_BASE;
                 if (Self::TEMP_BASE..=Self::TEMP_MAX).contains(&address) {
                     [
