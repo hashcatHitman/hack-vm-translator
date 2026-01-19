@@ -6,6 +6,11 @@ who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
 delta = "1.0.94 -> 1.0.95"
 
+[[audits.proc-macro2]]
+who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
+criteria = "safe-to-deploy"
+delta = "1.0.95 -> 1.0.96"
+
 [[audits.unicode-ident]]
 who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
