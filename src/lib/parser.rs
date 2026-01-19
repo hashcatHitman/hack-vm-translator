@@ -385,21 +385,11 @@ impl Display for StackManipulation {
 /// Branching instructions.
 #[derive(Debug, Clone, Hash)]
 pub(crate) enum Branching {
-    /// TODO: DOC.
-    Label {
-        /// TODO: DOC.
-        symbol: Symbol,
-    },
-    /// TODO: DOC.
-    GoTo {
-        /// TODO: DOC.
-        symbol: Symbol,
-    },
-    /// TODO: DOC.
-    IfGoTo {
-        /// TODO: DOC.
-        symbol: Symbol,
-    },
+    Label { symbol: Symbol },
+
+    GoTo { symbol: Symbol },
+
+    IfGoTo { symbol: Symbol },
 }
 
 impl Branching {
@@ -457,21 +447,10 @@ impl Display for Branching {
 /// Functional instructions.
 #[derive(Debug, Clone, Hash)]
 pub(crate) enum Functional {
-    /// TODO: DOC.
-    Function {
-        /// TODO: DOC.
-        symbol: Symbol,
-        /// TODO: DOC.
-        value: Constant,
-    },
-    /// TODO: DOC.
-    Call {
-        /// TODO: DOC.
-        symbol: Symbol,
-        /// TODO: DOC.
-        value: Constant,
-    },
-    /// TODO: DOC.
+    Function { symbol: Symbol, value: Constant },
+
+    Call { symbol: Symbol, value: Constant },
+
     Return,
 }
 

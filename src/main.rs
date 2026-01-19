@@ -7,6 +7,8 @@
 //! A VM translator that parses Hack VM commands and generates Hack assembly.
 //! Based on the nand2tetris course.
 
+#![expect(unused_crate_dependencies, reason = "error_set is not in use yet")]
+
 use std::{env, process};
 
 use hack_vm_translator::{Config, run};

@@ -7,6 +7,14 @@
 //! A VM translator that parses Hack VM commands and generates Hack assembly.
 //! Based on the nand2tetris course.
 
+#![expect(
+    unused_crate_dependencies,
+    clippy::module_name_repetitions,
+    clippy::missing_errors_doc,
+    reason = "error_set is not in use yet"
+)]
+#![allow(clippy::missing_docs_in_private_items, reason = "todo later")]
+
 extern crate alloc;
 
 use alloc::vec;
