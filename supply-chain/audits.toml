@@ -56,6 +56,11 @@ who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
 delta = "1.0.104 -> 1.0.105"
 
+[[audits.regex-syntax]]
+who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
+criteria = "safe-to-deploy"
+delta = "0.8.5 -> 0.8.6"
+
 [[audits.unicode-ident]]
 who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
