@@ -108,7 +108,7 @@ must_not_suspend = "warn" # unstable; #83310
 non_ascii_idents = "forbid"
 
 # Explicit matches are preferred
-non_exhaustive_omitted_patterns_lint = "warn"
+non_exhaustive_omitted_patterns = "warn" # unstable; #89554
 
 # Shadowing silently leads to unexpected behavior
 supertrait_item_shadowing_definition = "warn"
