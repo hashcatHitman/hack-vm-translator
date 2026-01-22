@@ -111,8 +111,8 @@ non_ascii_idents = "forbid"
 non_exhaustive_omitted_patterns = "warn" # unstable; #89554
 
 # Shadowing silently leads to unexpected behavior
-supertrait_item_shadowing_definition = "warn"
-supertrait_item_shadowing_usage = "warn"
+shadowing_supertrait_items = "warn"                    # unstable; #89151
+resolving_to_items_shadowing_supertrait_items = "warn" # unstable; #89151
 
 # Casting can be dangerous, I'd rather not if I don't need to
 trivial_casts = "warn"
