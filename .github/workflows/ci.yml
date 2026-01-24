@@ -36,7 +36,14 @@ jobs:
           persist-credentials: false
       - name: Install Rust
         run: rustup update stable && rustup default stable
-      - name: Install cargo-vet
+      - name: Check cache for cargo-vet
+        id: cache-cargo-vet
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+        with:
+          path: ~/.cargo/bin/cargo-vet
+          key: cargo-vet-bin-${{ env.CARGO_VET_VERSION }}
+      - if: ${{ steps.cache-cargo-vet.outputs.cache-hit != 'true' }}
+        name: Install cargo-vet
         run: cargo install --locked --version ${CARGO_VET_VERSION} cargo-vet
       - name: Invoke cargo-vet
         run: cargo vet --locked
