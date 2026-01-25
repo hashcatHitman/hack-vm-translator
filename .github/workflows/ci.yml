@@ -21,6 +21,7 @@ env:
   CARGO_TERM_COLOR: always
   CARGO_VET_VERSION: 0.10.2
   CARGO_AUDIT_VERSION: 0.22.0
+  ZIZMOR_VERSION: 1.22.0
   MSRV: 1.89.0
 
 defaults:
@@ -28,6 +29,37 @@ defaults:
     shell: bash
 
 jobs:
+  zizmor:
+    name: Workflow Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write # Required for upload-sarif to upload SARIF files.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - name: Install Rust
+        run: rustup update stable && rustup default stable
+      - name: Check cache for zizmor
+        id: cache-zizmor
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+        with:
+          path: ~/.cargo/bin/zizmor
+          key: zizmor-bin-${{ env.ZIZMOR_VERSION }}
+      - if: ${{ steps.cache-zizmor.outputs.cache-hit != 'true' }}
+        name: Install zizmor
+        run: cargo install --locked --version ${ZIZMOR_VERSION} zizmor
+      - name: Invoke zizmor
+        run: zizmor --persona auditor --format=sarif . > zizmor_results.sarif
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@19b2f06db2b6f5108140aeb04014ef02b648f789 # v4.31.11
+        with:
+          sarif_file: zizmor_results.sarif
+          category: zizmor
+
   cargo-vet:
     name: Vet Dependencies
     runs-on: ubuntu-latest
