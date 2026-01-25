@@ -20,6 +20,7 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   CARGO_VET_VERSION: 0.10.2
+  CARGO_AUDIT_VERSION: 0.22.0
   MSRV: 1.89.0
 
 defaults:
@@ -47,6 +48,27 @@ jobs:
         run: cargo install --locked --version ${CARGO_VET_VERSION} cargo-vet
       - name: Invoke cargo-vet
         run: cargo vet --locked
+
+  cargo-audit:
+    name: Audit Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - name: Install Rust
+        run: rustup update stable && rustup default stable
+      - name: Check cache for cargo-audit
+        id: cache-cargo-audit
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+        with:
+          path: ~/.cargo/bin/cargo-audit
+          key: cargo-audit-bin-${{ env.CARGO_AUDIT_VERSION }}
+      - if: ${{ steps.cache-cargo-audit.outputs.cache-hit != 'true' }}
+        name: Install cargo-audit
+        run: cargo install --locked --version ${CARGO_AUDIT_VERSION} cargo-audit
+      - name: Invoke cargo-audit
+        run: cargo audit --deny warnings
 
   quality-control:
     name: Quality Control
