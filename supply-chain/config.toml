@@ -20,3 +20,7 @@ criteria = "safe-to-deploy"
 [[exemptions.memchr]]
 version = "2.7.6"
 criteria = "safe-to-deploy"
+
+[[exemptions.regex-automata]]
+version = "0.4.13"
+criteria = "safe-to-deploy"
