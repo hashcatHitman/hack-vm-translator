@@ -12,3 +12,7 @@ url = "https://raw.githubusercontent.com/hashcatHitman/supply-chain/main/audits.
 
 [imports.mozilla]
 url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
+
+[[exemptions.memchr]]
+version = "2.7.6"
+criteria = "safe-to-deploy"
