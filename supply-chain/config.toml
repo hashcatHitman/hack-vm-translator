@@ -28,3 +28,7 @@ criteria = "safe-to-deploy"
 [[exemptions.regex-automata]]
 version = "0.4.13"
 criteria = "safe-to-deploy"
+
+[[exemptions.syn]]
+version = "2.0.114"
+criteria = "safe-to-deploy"
