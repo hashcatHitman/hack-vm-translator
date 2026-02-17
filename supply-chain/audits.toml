@@ -1,6 +1,15 @@
 
 # cargo-vet audits file
 
+[[audits.error_set]]
+who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
+criteria = "safe-to-deploy"
+version = "0.9.1"
+notes = """
+No `unsafe` used. There's basically nothing here, by auditing `error_set_impl`
+0.9.1 this crate was effectively audited as well.
+"""
+
 [[audits.error_set_impl]]
 who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
