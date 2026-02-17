@@ -1,6 +1,15 @@
 
 # cargo-vet audits file
 
+[[audits.error_set_impl]]
+who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
+criteria = "safe-to-deploy"
+version = "0.9.1"
+notes = """
+No `unsafe` used. The code doesn't appear to do any filesystem access or network
+access. All code generation seems to be as expected.
+"""
+
 [[audits.proc-macro2]]
 who = "hashcatHitman <155700084+hashcatHitman@users.noreply.github.com>"
 criteria = "safe-to-deploy"
